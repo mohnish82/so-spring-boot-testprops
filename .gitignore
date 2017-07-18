@@ -1,0 +1,14 @@
+.DS_Store
+*.class
+*.swp
+*.jar
+!/gradle/wrapper/gradle-wrapper.jar
+.project
+.classpath
+
+bin/
+build/
+.settings/
+.git/
+.gradle/
+
