@@ -13,20 +13,27 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration(initializers = ConfigFileApplicationContextInitializer.class)
-@ActiveProfiles("test")
 public class SpringPropertyLoadTest {
 	
 	@Autowired
 	Environment env;
 	
+	/**
+	 * src/test/resources/application.properties exists =>
+	 * - None from src/main/resources/application.properties
+	 */
 	@Test
-	public void shouldLoadDefaultProps() {
-		assertThat(env.getProperty("prop1")).isEqualTo("main_one");
+	public void shouldNotLoadMainProps() {
+		assertThat(env.getProperty("prop1")).isNull();
 	}
 	
-    @Test
-    public void shouldOverrideDefaultPropWithTestProp() {
-    	assertThat(env.getProperty("prop2")).isEqualTo("test_two");
-    }
+	/**
+	 * src/test/resources/application.properties exists =>
+	 * - All from that file
+	 */
+  @Test
+  public void shouldLoadTestProps() {
+  	assertThat(env.getProperty("prop2")).isEqualTo("test_two");
+  }
 
 }
